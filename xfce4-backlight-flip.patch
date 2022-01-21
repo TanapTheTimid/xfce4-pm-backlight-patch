@@ -1,0 +1,19 @@
+diff --git a/src/xfpm-backlight-helper.c b/src/xfpm-backlight-helper.c
+index 8452f44..d271b99 100644
+--- a/src/xfpm-backlight-helper.c
++++ b/src/xfpm-backlight-helper.c
+@@ -445,9 +445,11 @@ backlight_helper_get_best_backlight (void)
+   sysfs_paths = g_ptr_array_new_with_free_func (g_free);
+   device_name = g_dir_read_name (dir);
+   while (device_name != NULL) {
+-    filename = g_build_filename (BACKLIGHT_SYSFS_LOCATION,
+-               device_name, NULL);
+-    g_ptr_array_add (sysfs_paths, filename);
++    if(strstr(device_name, "nvidia") == NULL){
++      filename = g_build_filename (BACKLIGHT_SYSFS_LOCATION,
++                 device_name, NULL);
++      g_ptr_array_add (sysfs_paths, filename);
++    }
+     device_name = g_dir_read_name (dir);
+   }
+ 
